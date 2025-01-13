@@ -7,11 +7,24 @@ pipeline {
     }
 
     stages {
+        stage('Git Clone') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/sa7tout/TP_SPRING_CLOUD-Backend.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                bat 'mvn clean install'
+            }
+        }
+
         stage('Build & Analysis') {
             steps {
                 withSonarQubeEnv('SonarCloud') {
                     bat '''
-                        mvn clean verify sonar:sonar \
+                        mvn sonar:sonar \
                         -Dsonar.projectKey=spring-cloud \
                         -Dsonar.organization=emsig5ky \
                         -Dsonar.host.url=https://sonarcloud.io \
