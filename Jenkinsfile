@@ -14,15 +14,19 @@ pipeline {
             }
         }
 
-        stage('Build & Quality Analysis') {
+        stage('Build & Analysis') {
             steps {
                 withSonarQubeEnv('SonarCloud') {
                     bat '''
-                        mvn clean install
-                        mvn sonar:sonar -Dsonar.login=e8ffa2692c10fb241956a43d6bfb66c09172a282
-                        timeout /t 10 /nobreak
-                        waitForQualityGate abortPipeline: true
+                        mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=spring-cloud \
+                        -Dsonar.organization=emsig5ky \
+                        -Dsonar.host.url=https://sonarcloud.io \
+                        -Dsonar.login=e8ffa2692c10fb241956a43d6bfb66c09172a282
                     '''
+                }
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
