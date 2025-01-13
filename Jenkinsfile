@@ -7,13 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/sa7tout/TP_SPRING_CLOUD-Backend.git'
-            }
-        }
-
         stage('Build & Analysis') {
             steps {
                 withSonarQubeEnv('SonarCloud') {
@@ -22,11 +15,9 @@ pipeline {
                         -Dsonar.projectKey=spring-cloud \
                         -Dsonar.organization=emsig5ky \
                         -Dsonar.host.url=https://sonarcloud.io \
-                        -Dsonar.login=e8ffa2692c10fb241956a43d6bfb66c09172a282
+                        -Dsonar.login=e8ffa2692c10fb241956a43d6bfb66c09172a282 \
+                        -Dsonar.qualitygate.wait=true
                     '''
-                }
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
                 }
             }
         }
