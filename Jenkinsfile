@@ -23,7 +23,7 @@ pipeline {
         stage('SonarCloud Analysis') {
             steps {
                 withSonarQubeEnv('SonarCloud') {
-                    bat "${tool name: 'SonarScanner'}/bin/sonar-scanner -Dsonar.login=e8ffa2692c10fb241956a43d6bfb66c09172a282"
+                    bat "${tool name: 'SonarScanner'}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN"
                 }
             }
         }
