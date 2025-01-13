@@ -17,10 +17,10 @@ public class ClientServiceApplication {
     }
 
     @Bean
-    CommandLineRunner initializeH2Database(ClientRepository clientRepository) {
+    CommandLineRunner initializeDatabase(ClientRepository clientRepository) {
         return args -> {
-            clientRepository.save(new Client(null, "John Doe", 30));
-            clientRepository.save(new Client(null, "Jane Smith", 28));
+            clientRepository.save(new Client(null, "YOUNESS KASSIDE", 30));
+            clientRepository.save(new Client(null, "HIBA ARBEL", 28));
         };
     }
 }

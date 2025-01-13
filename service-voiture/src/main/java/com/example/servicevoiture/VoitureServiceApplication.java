@@ -17,7 +17,7 @@ public class VoitureServiceApplication {
     }
 
     @Bean
-    CommandLineRunner initializeH2Database(VoitureRepository voitureRepository) {
+    CommandLineRunner initializeDatabase(VoitureRepository voitureRepository) {
         return args -> {
             voitureRepository.save(new Voiture(null, "Toyota", "A 25 333", "Corolla", 1L, null));
             voitureRepository.save(new Voiture(null, "Renault", "B 6 3456", "Megane", 1L, null));
